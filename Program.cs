@@ -9,352 +9,455 @@ namespace CINE
 		{
 
 
-
-			Console.WriteLine("Bienvenido a cinepolis");
-			Console.WriteLine("");
-
-			int boleto = 50, Aboletos = 0, producto2 = 0;
-			string desea1, desea;
-			string QUESO = "", DOGOGRANDE = "";
-			double venta = 0, Tboletos = 0, cboletos = 0;
-			int producto;
-			string pelicula = "", tamaño = "";
-			string P1, P2, P3, P4, P5;
-			double promo = 0;
-			double IVA;
-			int niños = 0, mayores = 0; //boletos de niños  adulto
-			string niñYabues = "";
-			int PAL = 0, CHE = 0, DUL = 0, NAT = 0; // PALOMITAS
-			int SOD = 0, J = 0, G = 0, M = 0, CH = 0; // TAMANO DE SODAS
-			int NACH = 0, NACHQ = 0; // NACHOS
-			int DOG = 0, DOGD = 0; // TAMANOS DOGOS
-			int DULCES = 0, GOM = 0, CHO = 0, PALE = 0, CHIC = 0, PUL = 0;
-			int PQ1 = 0, PQ2 = 0, PQ3 = 0; // PAQUETES 
-			int palomita = 0, soda = 0, dulce = 0, paquete = 0, comida = 0; //TIPOS DE PRODUCTOS
+			int pelicula; // EL TIPO DE PELICULA SELECCIONADA
+			string desea1, desea2, desea3; //UTILIZADAS PARA DEFINIR LAS CONDICIONES DE LOS CICLOS DO WHILE
+			string Queso = "";    //LEE SI DESEAS PONERLE EXTRA QUESO A TUS NACHOS
+			double venta = 0;   //ACUMULA EL EL SUBTOTAL A PAGAR
+			double TOTAL = 0; //VARIABLE EN LA QUE SE GUARDA EL TOTAL A PAGAR
+			int producto;       //LEE EL TIPO DE PRODUCTO SELECCIONADO
+			string tamaño = ""; //LEE EL TIPO DE TAMAÑO SELECCIONADO
+			int ERROR1 = 0;
+			double IVA = 0;
+			int BoletosSolicitados = 0; //UTILIZADA PARA LEER LOS BOLETOS SOLICITADOS 
+			int boletosniño = 0, BoletosTerceraEdad = 0, boletosAdulto = 0; //ACUMULADORE DE LOS TIPOS DE BOLETOS
+			int Totalboletos = 0, CantidadBoletos = 0; //ACUMULADOR DEL PRECIO TOTAL DE BOLETOS Y CANTIDAD TOTAL DE BOLETOS
+			string niñYabues = ""; // LEE SI HAY NIÑOS O VIEJITOS
+			int PALOMITAS = 0, Chedar = 0, Caramelizadas = 0, Naturales = 0; // ACUMULADOR DEL TOTAL DE APLOMIYAS Y ACUMULADORES DEL LOS TIPOS PALOMITAS
+			int SODAS = 0, J = 0, G = 0, M = 0, CH = 0; // ACUMULADPOR DEL TOTAL DE SODAS ACUMULADORES DE LOS TAMAÑOS DE SODAS
+			int NACHOS = 0, NachosConQueso = 0, NachosExtraQueso = 0; // NACHOS
+			int DOGOS = 0, DogosNormal = 0, DogosDoble = 0; // TAMAÑOS DOGOS
+			int DULCES = 0, Gomitas = 0, Chocolates = 0, Paletas = 0, Chicles = 0, Pulparindos = 0;//TIPOS DE DULCES
+			int PAQUETES = 0, PAQ1 = 0, PAQ2 = 0, PAQ3 = 0; // PAQUETES 
+			int palomita = 0, dulce = 0, comida = 0; //TIPOS DE PRODUCTOS
 
 
-
-			Console.WriteLine("Cuantos boletos desea comprar");
-			Aboletos = Convert.ToInt32(Console.ReadLine());// boletos de adulto
-			Console.WriteLine("hay algun niño o abuelo?");
-			niñYabues = Console.ReadLine();
-			if (niñYabues == "Si" || niñYabues == "si" || niñYabues == "SI" || niñYabues == "zi" || niñYabues == "ci")
+			do
 			{
-				Console.WriteLine("Ingrese la cantidad de niños");
-				niños = Convert.ToInt32(Console.ReadLine());
-				if (niños < Aboletos)
+				Console.WriteLine("BIENVENIDO A CINEPOLIS");
+				Console.WriteLine("");
+
+				Console.WriteLine("Cuantos boletos desea comprar?");
+				BoletosSolicitados = Convert.ToInt32(Console.ReadLine());// Cantidad de boletos que pidio el cliente
+				Console.WriteLine("hay algun niño o abuelo? [S/N]");
+				niñYabues = Console.ReadLine();
+				if (niñYabues == "S" || niñYabues == "s")
 				{
-					Tboletos = Tboletos + niños * 25;
-					cboletos = cboletos + niños;
-					Aboletos = Aboletos - niños;
+					Console.WriteLine("Ingrese la cantidad de niños");
+					boletosniño = Convert.ToInt32(Console.ReadLine());
+
+					if (boletosniño <= BoletosSolicitados)
+					{
+						Totalboletos = Totalboletos + boletosniño * 25;
+						CantidadBoletos = CantidadBoletos + boletosniño;
+					}
+
+					Console.WriteLine("Ingrese la cantidad de abuelos:");
+					BoletosTerceraEdad = Convert.ToInt32(Console.ReadLine());
+
+					if ((BoletosTerceraEdad + boletosniño) <= BoletosSolicitados)
+					{
+						Totalboletos = Totalboletos + BoletosTerceraEdad * 25;
+						CantidadBoletos = CantidadBoletos + BoletosTerceraEdad;
+					}
+					else
+					{
+						ERROR1 = ERROR1 + 1;
+					}
+
+
 				}
-				Console.WriteLine("Ingrese la cantidad de abuelos:");
-				mayores = Convert.ToInt32(Console.ReadLine());
-				if (mayores < Aboletos)
+
+				BoletosSolicitados = BoletosSolicitados - boletosniño;
+				BoletosSolicitados = BoletosSolicitados - BoletosTerceraEdad;
+				Totalboletos = Totalboletos + BoletosSolicitados * 50;
+				CantidadBoletos = CantidadBoletos + BoletosSolicitados;
+				boletosAdulto = BoletosSolicitados;
+
+				Console.ReadKey();
+				Console.Clear();
+
+				if (ERROR1 == 0)
 				{
-					Tboletos = Tboletos + mayores * 25;
-					cboletos = cboletos + mayores;
-					Aboletos = Aboletos - mayores;
-				}
-				Tboletos = Tboletos + Aboletos * boleto;
-				cboletos = cboletos + Aboletos;
+					Console.WriteLine("                 CARTELERA  ");
+					Console.WriteLine("");
+					Console.WriteLine("[1] Blood in Blood out");
+					Console.WriteLine("[2] Inception");
+					Console.WriteLine("[3] El infierno");
+					Console.WriteLine("[4] Animales fantasticos y donde encontrarlos");
+					Console.WriteLine("[5] The danish girl");
+					Console.WriteLine("");
 
-			}
-			Console.ReadKey();
-			Console.Clear();
-
-
-
-			Console.WriteLine("                 MENU  ");
-			Console.WriteLine("");
-			Console.WriteLine(P1 = "[1]Blood in Blood out");
-			Console.WriteLine(P2 = "[2]El infierno");
-			Console.WriteLine(P3 = "[3]A la mas grande le puse cuca");
-			Console.WriteLine(P4 = "[4]AI MUCHAS COSAS WUUUUU");
-			Console.WriteLine(P5 = "[5]E.T");
-
-			Console.WriteLine("");
-			Console.WriteLine("Seleccione una pelicula");
-			pelicula = Convert.ToString(Console.ReadLine());
-			Console.WriteLine(pelicula);
-			Console.WriteLine("Desea usted algo de la dulceria? [S/N]");
-			desea1 = Console.ReadLine();
-
-
-
-			if (desea1 == "S" || desea1 == "s")
-			{
-				//Console.WriteLine("         DULCERIA");
-				//Console.WriteLine("");
-				//Console.WriteLine("PALOMITAS");
-				//Console.WriteLine("Chedar................$85");
-				//Console.WriteLine("Dulces................$70");
-				//Console.WriteLine("Naturales.............$75");
-				//Console.WriteLine("");
-				//Console.WriteLine("SODA");
-				//Console.WriteLine("JUMBO.................$70");
-				//Console.WriteLine("GRANDE................$65");
-				//Console.WriteLine("MEDIANA...............$50");
-				//Console.WriteLine("CHICA.................$45");
-				//Console.WriteLine("");
-				//Console.WriteLine("COMIDA");
-				//Console.WriteLine("NACHOS $70 - Extra queso +$15");
-				//Console.WriteLine("Dogo $70 - doble....$100");
-				//Console.WriteLine("");
-				//Console.WriteLine("DULCES");
-				//Console.WriteLine("Gomitas...............$15");
-				//Console.WriteLine("Chocolates............$20");
-				//Console.WriteLine("Paletas...............$15");
-				//Console.WriteLine("Chicles...............$15");
-				//Console.WriteLine("Pulparindo............$20");
-				//Console.WriteLine("[PAQ1]PAQUETE 1: SODA JUMBO, NACHOS, DOGO(15% DE DESCUENTO");
-				//Console.WriteLine("[PAQ2]PAQUETE 2: SODA GRANDE, NACHOS, PALOMITAS(10% DE DESCUENTO");
-				//Console.WriteLine("[PAQ3]PAQUETE 3: SODA CHICA, NACHOS, 3 DULCES(15% DE DESCUENTO");
-				//Console.ReadKey();
-				//Console.Clear();
-
-				do
-				{
+					Console.WriteLine("Seleccione una pelicula");
+					pelicula = Convert.ToInt32(Console.ReadLine()); //LECTURA DE LA OPCION QUE ELIJAS
+					Console.ReadKey();
 					Console.Clear();
-					Console.WriteLine("Qué desea comprar?");
-					Console.WriteLine("[1]PALOMITAS");
-					Console.WriteLine("[2]SODA");
-					Console.WriteLine("[3]COMIDA");
-					Console.WriteLine("[4]DULCES");
-					Console.WriteLine("[5]PAQUETES");
-					producto = Convert.ToInt32(Console.ReadLine());
+
+					//CONDICIONES DEPENDIENDO DE LA PELIUCLA QUE ELEGISTE
+					if (pelicula == 1)
+					{
+						Console.WriteLine("PELICULA SELCCIONADA: Blood in Blood out");
+					}
+					if (pelicula == 2)
+					{
+						Console.WriteLine("PELICULA SELCCIONADA: Inception");
+					}
+					if (pelicula == 3)
+					{
+						Console.WriteLine("PELICULA SELCCIONADA: El infierno");
+					}
+					if (pelicula == 4)
+					{
+						Console.WriteLine("PELICULA SELCCIONADA: Animales fantasticos y donde encontrarlos");
+					}
+					if (pelicula == 5)
+					{
+						Console.WriteLine("PELICULA SELCCIONADA: The danish girl");
+					}
+
+					Console.WriteLine("");
+					Console.WriteLine("DESEA ALGO DE LA DULCERIA? [S/N]");
+					desea1 = Console.ReadLine();
 					Console.ReadKey();
 					Console.Clear();
 
 
-					if (producto == 1) // SI ELEGISTE PALOMITAS
+
+					if (desea1 == "S" || desea1 == "s")
 					{
-						Console.WriteLine("            Escoge el tipo de palomita");
-						Console.WriteLine("");
-						Console.WriteLine("[1]Chedar................$85");
-						Console.WriteLine("[2]Dulces................$70");
-						Console.WriteLine("[3]Naturales.............$75");
-						palomita = Convert.ToInt32(Console.ReadLine());
-						if (palomita == 1)
-						{
-							venta += 85;
-							CHE = CHE + 1;
-						}
-						if (palomita == 2)
-						{
-							venta += 70;
-							DUL = DUL + 1;
 
-						}
-						if (palomita == 3)
+						do
 						{
-							venta += 45;
-							NAT = NAT + 1;
-						}
-					}
-					if (producto == 2) // SI ELEGISTE SODA
-					{
-						Console.WriteLine("        Elija el tamaño de la soda");
-						Console.WriteLine("");
-						Console.WriteLine("[J]JUMBO");
-						Console.WriteLine("[G]GRANDE");
-						Console.WriteLine("[M]MEDIANA");
-						Console.WriteLine("[CH]CHICA");
-						tamaño = Console.ReadLine();
+							Console.Clear();
+							Console.WriteLine("QUÉ DESEA COMPRAR?");
+							Console.WriteLine("[1] PALOMITAS");
+							Console.WriteLine("[2] SODA");
+							Console.WriteLine("[3] COMIDA");
+							Console.WriteLine("[4] DULCES");
+							Console.WriteLine("[5] PAQUETES");
 
-						if (tamaño == "J")
-						{
-							venta += 70;
-							J = J + 1;
-						}
-						if (tamaño == "G")
-						{
-							venta += 65;
-							G += 1;
-						}
-						if (tamaño == "M")
-						{
-							venta += 50;
-							M = M + 1;
-						}
-						if (tamaño == "CH")
-						{
-							venta += 45;
-							CH = CH + 1;
-						}
-						SOD = SOD + 1;
+							producto = Convert.ToInt32(Console.ReadLine());
+							Console.ReadKey();
+							Console.Clear();
 
-					}
-					if (producto == 3)//SI ELEGISTE COMIDA
-					{
-						Console.WriteLine("          Escoge el tipo de comida");
-						Console.WriteLine("[1]NACHOS $70 - Extra queso +$15");
-						Console.WriteLine("[2]Dogo $70 - doble....$100");
-						comida = Convert.ToInt32(Console.ReadLine());
 
-						if (comida == 1)
-						{
-							Console.WriteLine("Desea su dogo grande? [S/N]");
-							DOGOGRANDE = Console.ReadLine();
-
-							if (DOGOGRANDE == "S" || DOGOGRANDE == "s")
+							if (producto == 1) // SI ELEGISTE PALOMITAS
 							{
-								venta += 100;
-								DOGD = DOGD + 1;
+								Console.WriteLine("ESCOJA EL TIPO DE PALOMITAS");
+								Console.WriteLine("[1]Chedar");
+								Console.WriteLine("[2]Dulces");
+								Console.WriteLine("[3]Naturales");
+								palomita = Convert.ToInt32(Console.ReadLine());
+								Console.ReadKey();
+								Console.Clear();
+
+								if (palomita == 1)
+								{
+									venta = venta + 85;
+									Chedar = Chedar + 1;
+									PALOMITAS = PALOMITAS + 1;
+								}
+								if (palomita == 2)
+								{
+									venta = venta + 70;
+									Caramelizadas = Caramelizadas + 1;
+									PALOMITAS = PALOMITAS + 1;
+								}
+								if (palomita == 3)
+								{
+									venta = venta + 75;
+									Naturales = Naturales + 1;
+									PALOMITAS = PALOMITAS + 1;
+								}
 							}
-							else
+							if (producto == 2) // SI ELEGISTE SODA
 							{
-								venta += 70;
-								DOG = DOG + 1;
+								Console.WriteLine("ELIJA EL TAMAÑO DE LA SODA");
+								Console.WriteLine("");
+								Console.WriteLine("[J]JUMBO");
+								Console.WriteLine("[G]GRANDE");
+								Console.WriteLine("[M]MEDIANA");
+								Console.WriteLine("[CH]CHICA");
+								tamaño = Console.ReadLine();
+								Console.ReadKey();
+								Console.Clear();
+
+								if (tamaño == "J" || tamaño == "j")
+								{
+									venta = venta + 70;
+									J = J + 1;
+									SODAS = SODAS + 1;
+								}
+								if (tamaño == "G" || tamaño == "g")
+								{
+									venta = venta + 60;
+									G = G + 1;
+									SODAS = SODAS + 1;
+								}
+								if (tamaño == "M" || tamaño == "m")
+								{
+									venta = venta + 50;
+									M = M + 1;
+									SODAS = SODAS + 1;
+								}
+								if (tamaño == "CH" || tamaño == "ch" || tamaño == "Ch" || tamaño == "cH")
+								{
+									venta = venta + 45;
+									CH = CH + 1;
+									SODAS = SODAS + 1;
+								}
+
+
 							}
-						}
-						if (comida == 2)
-						{
-							Console.WriteLine("DESEA PONERLE EXTRA QUESO?[S/N]");
-							QUESO = Console.ReadLine();
-							if (QUESO == "S" || QUESO == "s")
+							if (producto == 3)//SI ELEGISTE COMIDA
 							{
-								venta += 85;
-								NACHQ += 1;
+								Console.WriteLine("ESCOJE EL TIPO DE COMIDA");
+								Console.WriteLine("[1] Nachos con queso");
+								Console.WriteLine("[2] Dogo normal");
+								Console.WriteLine("[3] Dogo doble");
+								comida = Convert.ToInt32(Console.ReadLine());
+								Console.ReadKey();
+								Console.Clear();
+
+								if (comida == 1)
+								{
+									Console.WriteLine("DESEA PONERLE EXTRA QUESO?[S/N]");
+									Queso = Console.ReadLine();
+									Console.ReadKey();
+									Console.Clear();
+
+									if (Queso == "S" || Queso == "s")
+									{
+										venta = venta + 85;
+										NachosExtraQueso = NachosExtraQueso + 1;
+										NACHOS = NACHOS + 1;
+									}
+									else
+									{
+										venta = venta + 70;
+										NachosConQueso = NachosConQueso + 1;
+										NACHOS = NACHOS + 1;
+									}
+
+								}
+								if (comida == 2)
+								{
+									venta = venta + 70;
+									DogosNormal = DogosNormal + 1;
+									DOGOS = DOGOS + 1;
+								}
+
+								if (comida == 3)
+								{
+									venta = venta + 100;
+									DogosDoble = DogosDoble + 1;
+								}
+
 							}
-							else
+
+
+							if (producto == 4) //SI ELEGISTE DULCES
 							{
-								venta += 70;
-								NACH += 1;
+								Console.WriteLine("QUE DULCE DECEA COMPRAR?");
+								Console.WriteLine("[1]GOMITAS............$15");
+								Console.WriteLine("[2]CHOCOLATES.........$20");
+								Console.WriteLine("[3]PALETAS............$15");
+								Console.WriteLine("[4]CHICLES............$15");
+								Console.WriteLine("[5]PULPARINDO.........$15");
+								dulce = Convert.ToInt32(Console.ReadLine());
+								Console.ReadKey();
+								Console.Clear();
+
+								if (dulce == 1)
+								{
+									venta = venta + 15;
+									Gomitas = Gomitas + 1;
+									DULCES = DULCES + 1;
+								}
+								if (dulce == 2)
+								{
+									venta = venta + 20;
+									Chocolates = Chocolates + 1;
+									DULCES = DULCES + 1;
+								}
+								if (dulce == 3)
+								{
+									venta = venta + 15;
+									Paletas = Paletas + 1;
+									DULCES = DULCES + 1;
+								}
+								if (dulce == 4)
+								{
+									venta = venta + 15;
+									Chicles = Chicles + 1;
+									DULCES = DULCES + 1;
+								}
+								if (dulce == 5)
+								{
+									venta = venta + 15;
+									Pulparindos = Pulparindos + 1;
+									DULCES = DULCES + 1;
+
+								}
+
 							}
-							producto2 = producto2 + 1;
-						}
+							if (producto == 5) // SI ELEGISTE PAQUETES
+							{
+								Console.WriteLine("ELIJA UN PAQUETE");
+								Console.WriteLine("");
+								Console.WriteLine("[1]PAQUETE 1: SODA JUMBO, NACHOS, DOGO(15% DE DESCUENTO");
+								Console.WriteLine("[2]PAQUETE 2: SODA GRANDE, NACHOS, PALOMITAS(10% DE DESCUENTO");
+								Console.WriteLine("[3]PAQUETE 3: SODA CHICA, NACHOS, 3 DULCES(15% DE DESCUENTO");
+								PAQUETES = Convert.ToInt32(Console.ReadLine());
+								Console.ReadKey();
+								Console.Clear();
+
+								if (PAQUETES == 1)
+								{
+									venta = venta + 178.5;
+									PAQ1 = PAQ2 + 1;
+								}
+								if (PAQUETES == 2)
+								{
+									venta = venta + 184.5;
+									PAQ2 = PAQ2 + 1;
+								}
+								if (PAQUETES == 3)
+								{
+									venta = venta + 152;
+									PAQ3 = PAQ3 + 1;
+								}
+							}
+
+
+							Console.WriteLine("Desea comprar algo mas? [S/N]");
+							desea2 = Console.ReadLine();
+							Console.ReadKey();
+							Console.Clear();
+
+						} while (desea2 == "S" || desea2 == "s");
+
+
+
 
 					}
 
-					if (producto == 4)
-					{
-						Console.WriteLine("QUE DULCE DECEA COMPRAR?");
-						Console.WriteLine("[1]GOMITAS");
-						Console.WriteLine("[2]CHOCOLATES");
-						Console.WriteLine("[3]PALETAS");
-						Console.WriteLine("[4]CHICLES");
-						Console.WriteLine("[5]PULPARINDO");
-
-						if (dulce == 1)
-						{
-							venta += 15;
-							GOM = GOM + 1;
-							DULCES = DULCES + 1;
-						}
-						if (dulce == 2)
-						{
-							venta += 15;
-							CHO = CHO + 1;
-							DULCES = DULCES + 1;
-						}
-						if (dulce == 3)
-						{
-							venta += 15;
-							PALE = PALE + 1;
-							DULCES = DULCES + 1;
-						}
-						if (dulce == 4)
-						{
-							venta += 15;
-							CHIC = CHIC + 1;
-							DULCES = DULCES + 1;
-						}
-						if (dulce == 5)
-						{
-							venta += 15;
-							PUL = PUL + 1;
-							DULCES = DULCES + 1;
-
-						}
-
-					}
-					if (producto == 5) // SI ELEGISTE PAQUETES
-					{
-						Console.WriteLine("                    Elija un paquete");
-						Console.WriteLine("");
-						Console.WriteLine("[1]PAQUETE 1: SODA JUMBO, NACHOS, DOGO(15% DE DESCUENTO");
-						Console.WriteLine("[2]PAQUETE 2: SODA GRANDE, NACHOS, PALOMITAS(10% DE DESCUENTO");
-						Console.WriteLine("[3]PAQUETE 3: SODA CHICA, NACHOS, 3 DULCES(15% DE DESCUENTO");
-						paquete = Convert.ToInt32(Console.ReadLine());
-
-						if (paquete == 1)
-						{
-							venta += 178.5;
-							PQ1 = PQ2 + 1;
-						}
-						if (paquete == 2)
-						{
-							venta += 85;
-							PQ2 = PQ2 + 1;
-						}
-						if (paquete == 3)
-						{
-							venta += 85;
-							PQ3 = PQ3 + 1;
-						}
-					}
-					if (pelicula == "P3")
+					/*Descuento por elegir la pelicula 3, y que el cliente haya comprado una soda 
+					  y unos nachos. */
+					if ((pelicula == 3) & (SODAS > 0) & (NACHOS > 0))
 					{
 
-						if (producto == 2 & producto2 == 1)
-						{
+						Console.WriteLine("Tiene usted un descuento del 10% en su compra final :D");
 
-							Console.WriteLine("Tiene usted un descuento del 10% en su compra final :D");
-							promo += (75 + 70) * 0.10;
-							venta = (75 + 70) - promo;
-						}
+						venta = venta - venta * 0.10;
+
 					}
 
-					Console.WriteLine("Desea comprar algo mas?");
-					desea = Console.ReadLine();
+					/*Descuento por elegir la pelicula 5 y que hayan sido comprados mas de 2 
+					  boletos para viejitos. */
+					if (pelicula == 5 & BoletosTerceraEdad > 1)
+					{
 
-				} while (desea == "Si" || desea == "si" || desea == "SI" || desea == "zi" || desea == "ci");
+						Console.WriteLine("Tiene usted un descuento de un boleto de viejito en su compra final :D");
+						Totalboletos = Totalboletos - 25;
+
+					}
+
+					Console.WriteLine("PELICULA SELCCIONADA");
+
+					//Condiciones para imprimir una pelicula
+					if (pelicula == 1) { Console.WriteLine("Blood in Blood out"); }
+					if (pelicula == 2) { Console.WriteLine("Inception"); }
+					if (pelicula == 3) { Console.WriteLine("El infierno"); }
+					if (pelicula == 4) { Console.WriteLine("Animales fantasticos y donde encontrarlos"); }
+					if (pelicula == 5) { Console.WriteLine("The danish girl"); }
+
+					Console.WriteLine("");
+					Console.WriteLine("PRODUCTOS VENDIDOS");
+
+					//Condiciones para imprimir los productos vendidos
+					if ((PAQ1 > 0) || (PAQ2 > 0) || (PAQ3 > 0)) { Console.WriteLine("COMBOS"); }
+					if (PAQ1 > 0) { Console.WriteLine(PAQ1 + " PAQUETES 1...................................................$" + PAQ1 * 178.5); }
+					if (PAQ2 > 0) { Console.WriteLine(PAQ2 + " PAQUETES 2...................................................$" + PAQ2 * 184.5); }
+					if (PAQ3 > 0) { Console.WriteLine(PAQ3 + " PAQUETES 3...................................................$" + PAQ3 * 152); }
+					if (PALOMITAS > 0) { Console.WriteLine(""); }
+					if (PALOMITAS > 0) { Console.WriteLine("PALOMITAS"); }
+					if (Chedar > 0) { Console.WriteLine(Chedar + " Chedar.......................................................$" + Chedar * 85); }
+					if (Caramelizadas > 0) { Console.WriteLine(Caramelizadas + " Dulces.......................................................$" + Caramelizadas * 70); }
+					if (Naturales > 0) { Console.WriteLine(Naturales + " Naturales....................................................$" + Naturales * 75); }
+					if (SODAS > 0) { Console.WriteLine(""); }
+					if (SODAS > 0) { Console.WriteLine("SODAS"); }
+					if (J > 0) { Console.WriteLine(J + " Jumbo........................................................$" + J * 70); }
+					if (G > 0) { Console.WriteLine(G + " Grandes......................................................$" + G * 60); }
+					if (M > 0) { Console.WriteLine(M + " Medianas.....................................................$" + M * 50); }
+					if (CH > 0) { Console.WriteLine(CH + " Chicas.......................................................$" + CH * 45); }
+					if (DULCES > 0) { Console.WriteLine(""); }
+					if (DULCES > 0) { Console.WriteLine(DULCES + " DULCES"); }
+					if (Gomitas > 0) { Console.WriteLine(Gomitas + " Gomitas......................................................$" + Gomitas * 15); }
+					if (Chocolates > 0) { Console.WriteLine(Chocolates + " Chocolates...................................................$" + Chocolates * 20); }
+					if (Paletas > 0) { Console.WriteLine(Paletas + " Paletas......................................................$" + Paletas * 15); }
+					if (Chicles > 0) { Console.WriteLine(Chicles + " Chicles......................................................$" + Chicles * 15); }
+					if (Pulparindos > 0) { Console.WriteLine(Pulparindos + " Pulparindo...................................................$" + Pulparindos * 15); }
+					Console.WriteLine(venta);
+					//Boletos vendidos
+					if (CantidadBoletos > 0) { Console.WriteLine(""); }
+					if (CantidadBoletos > 0) { Console.WriteLine("BOLETOS VENDIDOS"); }
+					if (boletosniño > 0) { Console.WriteLine(boletosniño + " Boletos de niño..............................................$" + boletosniño * 25); }
+					if (boletosAdulto > 0) { Console.WriteLine(boletosAdulto + " Boletos de adulto............................................$" + boletosAdulto * 50); }
+					if (BoletosTerceraEdad > 0) { Console.WriteLine(BoletosTerceraEdad + " Boletos de viejito...........................................$" + BoletosTerceraEdad * 25); }
+
+					//Total a pagar
+					venta = venta + Totalboletos; //SUMA EL PRECIO DE LOS BOLETOS A EL TOTAL FINAL
+					IVA = venta * 0.16; //CALCULO PARA SACAR EL IVA 
+					TOTAL = venta + IVA;//SUMA EL IVA AL TOTAL FINAL
+
+					Console.WriteLine("");
+					if (Totalboletos > 0) { Console.WriteLine("Precio de los boletos:.........................................$" + Totalboletos); }
+					Console.WriteLine("Subtotal:......................................................$" + venta);
+					Console.WriteLine("IVA:...........................................................$" + IVA);
+					Console.WriteLine("Total a pagar:.................................................$" + TOTAL);
+
+				}
+				else
+				{
+					/*Si la cantidad de boletos de niños o abuelos superan la cantidad 
+					solicitada el sistema arroja un error y te devuelve al principio*/
+					Console.WriteLine("ERROR VUELVE A INTRODUCIR LA CANTIDAD DE BOLETOS");
+
+				}
 
 
+				desea3 = Console.ReadLine();
+				Console.ReadKey();
+				Console.Clear();
 
-
-			}
-			if (pelicula == "P5" & mayores > 1)
-			{
-
-				Tboletos = Tboletos - 25;
-
-			}
-
-
-			if (PQ1 > 0) { Console.WriteLine(PQ1 + " PAQUETES 1 VENDIDOS"); }
-			if (PQ2 > 0) { Console.WriteLine(PQ2 + " PAQUETES 2 VENDIDOS"); }
-			if (PQ3 > 0) { Console.WriteLine(PQ3 + " PAQUETES 3 VENDIDOS"); }
-			if (PAL > 0) { Console.WriteLine(PAL + " PALOMITAS VENDIDAS"); }
-			if (CHE > 0) { Console.WriteLine(CHE + " CHEDAR"); }
-			if (DUL > 0) { Console.WriteLine(DUL + " DULCES"); }
-			if (NAT > 0) { Console.WriteLine("		" + NAT + "PALOMITAS NATURALES"); }
-			if (SOD > 0) { Console.WriteLine(SOD + " SODAS VENDIDAS"); }
-			if (J > 0) { Console.WriteLine(J + " SODAS JUMBO"); }
-			if (G > 0) { Console.WriteLine(G + " SODAS GRANDE"); }
-			if (M > 0) { Console.WriteLine(M + " SODAS  MEDIANA"); }
-			if (CH > 0) { Console.WriteLine(CH + " SODAS CHICAS"); }
-			if (DULCES > 0) { Console.WriteLine(DULCES + " DULCES VENDIDOS"); }
-			if (GOM > 0) { Console.WriteLine(GOM + " GOMITAS"); }
-			if (CHO > 0) { Console.WriteLine(CHO + " CHOCOLATES"); }
-			if (PALE > 0) { Console.WriteLine(PALE + " PALETAS"); }
-			if (CHIC > 0) { Console.WriteLine(CHIC + " CHICLES"); }
-			if (PUL > 0) { Console.WriteLine(PUL + " PULPARINDO"); }
-			if (cboletos > 0) { Console.WriteLine(cboletos + "BOLETOS"); }
-			if (PUL > 0) { Console.WriteLine(niños + "Boletos de niños $20(pz)"); }
-			if (Aboletos > 0) { Console.WriteLine(Aboletos + "Boletos de adulto $50(pz)"); }
-			if (mayores > 0) { Console.WriteLine(mayores + "Boletos de mayores $25(pz)"); }
-
-			Console.WriteLine("");
-			IVA = venta * 0.16;
-			venta += Tboletos;
-			venta += IVA;
-			if (Tboletos > 0) { Console.WriteLine("Precio de los boletos: $" + Tboletos); }
-			Console.WriteLine("Subtotal: $" + venta);
-			Console.WriteLine("IVA: $" + IVA);
-			Console.WriteLine("Total a pagar: $" + venta);
-
+			} while ( (desea3 != "CLOSE") || (desea3 != "close") );
 		}
 	}
 }
+/*	PALOMITAS
+	Chedar.......................................................$85
+	Dulces.......................................................$70
+	Naturales....................................................$75
+
+	SODAS
+	Jumbo........................................................$70
+	Grande.......................................................$65
+	Mediana......................................................$50
+	Chicas.......................................................$45
+
+	COMIDAS
+	NACHOS $70 - Extra queso +$15
+	Dogo $70 - doble.............................................$100
+
+	DULCES
+	Gomitas.............. .......................................$15
+	Chocolates...................................................$20
+	Paletas......................................................$15
+	Chicles......................................................$15
+	Pulparindo...................................................$15
+
+	PAQUETES
+	PAQUETE 1: SODA JUMBO, NACHOS, DOGO(15% DE DESCUENTO)........$178.5
+	PAQUETE 2: SODA GRANDE, NACHOS, PALOMITAS(10% DE DESCUENTO)..$184.5
+	PAQUETE 3: SODA CHICA, NACHOS, 3 DULCES(5% DE DESCUENTO).....$152
+																		*/
